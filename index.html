@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentHub Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+</head>
+<body class="h-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <div id="app" class="flex h-full min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="flex w-56 shrink-0 flex-col border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 md:w-64">
+      <div class="border-b border-slate-200 px-5 py-5 dark:border-slate-800">
+        <p class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">AgentHub</p>
+        <h1 class="mt-1 text-lg font-bold text-slate-900 dark:text-white">Admin Panel</h1>
+      </div>
+      <nav class="flex-1 space-y-1 px-3 py-4" aria-label="Main navigation">
+        <button type="button" data-section="dashboard" class="nav-btn w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors">Dashboard</button>
+        <button type="button" data-section="users" class="nav-btn w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors">User Management</button>
+        <button type="button" data-section="agents" class="nav-btn w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors">Agent Management</button>
+        <button type="button" data-section="skills" class="nav-btn w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors">Skills</button>
+        <button type="button" data-section="contracts" class="nav-btn w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors">Agent Contracts</button>
+        <button type="button" data-section="errors" class="nav-btn w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors">Error Log</button>
+      </nav>
+    </aside>
+
+    <!-- Main area -->
+    <div class="flex min-w-0 flex-1 flex-col">
+      <header class="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-900">
+        <div>
+          <h2 id="page-title" class="text-xl font-semibold text-slate-900 dark:text-white">Dashboard</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Internal admin console</p>
+        </div>
+        <button type="button" id="theme-toggle" aria-label="Toggle dark mode" class="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
+          <span id="theme-icon" aria-hidden="true">🌙</span>
+          <span id="theme-label">Dark mode</span>
+        </button>
+      </header>
+
+      <main class="flex-1 overflow-x-auto overflow-y-auto p-6">
+
+        <!-- Dashboard -->
+        <section id="section-dashboard" data-section-panel="dashboard" class="section-panel space-y-6">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400">
+                <span aria-hidden="true">💰</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Total Revenue This Month</p>
+              <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">$84,250</p>
+            </article>
+            <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400">
+                <span aria-hidden="true">🏷️</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Discount &amp; Coupon Losses</p>
+              <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">$6,430</p>
+            </article>
+            <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400">
+                <span aria-hidden="true">🤖</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Active Agents</p>
+              <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">128</p>
+            </article>
+            <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400">
+                <span aria-hidden="true">⚠️</span>
+              </div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Failing Agents</p>
+              <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">7</p>
+            </article>
+          </div>
+          <div class="flex h-64 items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-white text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
+            Weekly Activity Chart Placeholder
+          </div>
+        </section>
+
+        <!-- User Management -->
+        <section id="section-users" data-section-panel="users" class="section-panel hidden space-y-4">
+          <div class="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <table class="min-w-full text-left text-sm">
+              <thead class="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Name</th>
+                  <th class="px-4 py-3 font-semibold">Email</th>
+                  <th class="px-4 py-3 font-semibold">Plan</th>
+                  <th class="px-4 py-3 font-semibold">Status</th>
+                  <th class="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Agent Management -->
+        <section id="section-agents" data-section-panel="agents" class="section-panel hidden space-y-4">
+          <div id="agents-list" class="space-y-4"></div>
+        </section>
+
+        <!-- Skills -->
+        <section id="section-skills" data-section-panel="skills" class="section-panel hidden space-y-4">
+          <p class="rounded-xl border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+            A skill is a reusable capability that can be attached to an AI agent so the agent can perform a specific category of work, such as browsing the web, reading documents, parsing invoices, managing calendars, or generating reports.
+          </p>
+          <div id="skills-list" class="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
+        </section>
+
+        <!-- Agent Contracts -->
+        <section id="section-contracts" data-section-panel="contracts" class="section-panel hidden space-y-4">
+          <div class="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <table class="min-w-full text-left text-sm">
+              <thead class="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Client</th>
+                  <th class="px-4 py-3 font-semibold">Agent</th>
+                  <th class="px-4 py-3 font-semibold">Contracted Skills</th>
+                  <th class="px-4 py-3 font-semibold">Start Date</th>
+                  <th class="px-4 py-3 font-semibold">End Date</th>
+                  <th class="px-4 py-3 font-semibold">Status</th>
+                  <th class="px-4 py-3 font-semibold">Amount Paid</th>
+                  <th class="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contracts-table-body" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Error Log -->
+        <section id="section-errors" data-section-panel="errors" class="section-panel hidden space-y-4">
+          <div class="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <table class="min-w-full text-left text-sm">
+              <thead class="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:border-slate-800 dark:bg-slate-800/50 dark:text-slate-400">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Timestamp</th>
+                  <th class="px-4 py-3 font-semibold">Agent Name</th>
+                  <th class="px-4 py-3 font-semibold">Error Type</th>
+                  <th class="px-4 py-3 font-semibold">Description</th>
+                  <th class="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="errors-table-body" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" role="presentation">
+    <div id="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-700 dark:bg-slate-900">
+      <button type="button" id="modal-close" aria-label="Close modal" class="absolute right-4 top-4 rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:hover:bg-slate-800 dark:hover:text-slate-200">&times;</button>
+      <h3 id="modal-title" class="mb-4 pr-8 text-lg font-semibold text-slate-900 dark:text-white"></h3>
+      <div id="modal-body" class="space-y-3 text-sm text-slate-600 dark:text-slate-300"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="pointer-events-none fixed bottom-6 right-6 z-50 hidden rounded-lg bg-slate-900 px-4 py-3 text-sm font-medium text-white shadow-lg dark:bg-slate-100 dark:text-slate-900" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ── Data ── */
+    const SECTION_TITLES = {
+      dashboard: 'Dashboard',
+      users: 'User Management',
+      agents: 'Agent Management',
+      skills: 'Skills',
+      contracts: 'Agent Contracts',
+      errors: 'Error Log',
+    };
+
+    const users = [
+      { id: 'u1', name: 'Maya Chen', email: 'maya.chen@northstar.example', plan: 'Enterprise', status: 'Active', company: 'Northstar Property Group', joined: '2026-01-12', lastLogin: '2026-06-22 14:35' },
+      { id: 'u2', name: 'Luis Ramirez', email: 'luis.ramirez@beacon.example', plan: 'Pro', status: 'Trial', company: 'Beacon Health Partners', joined: '2026-06-01', lastLogin: '2026-06-23 09:20' },
+      { id: 'u3', name: 'Priya Shah', email: 'priya.shah@urbanbuild.example', plan: 'Enterprise', status: 'Active', company: 'UrbanBuild Contractors', joined: '2026-02-18', lastLogin: '2026-06-21 17:10' },
+      { id: 'u4', name: 'Evan Brooks', email: 'evan.brooks@meridian.example', plan: 'Standard', status: 'Past Due', company: 'Meridian Legal Services', joined: '2026-03-05', lastLogin: '2026-06-18 11:42' },
+      { id: 'u5', name: 'Aisha Grant', email: 'aisha.grant@clearline.example', plan: 'Pro', status: 'Suspended', company: 'Clearline Logistics', joined: '2026-04-09', lastLogin: '2026-06-10 08:55' },
+    ];
+
+    const agents = [
+      { id: 'a1', name: 'Atlas Support Agent', owner: 'Northstar Property Group', status: 'Active', skills: ['Web Browsing', 'Document Reader', 'Ticket Summarizer'], prompt: 'You are Atlas Support Agent, an internal support assistant for Northstar Property Group. Summarize tenant requests, identify urgency, and prepare clear escalation notes for staff review.' },
+      { id: 'a2', name: 'Ledger Reconciliation Agent', owner: 'Beacon Health Partners', status: 'Failing', skills: ['Document Reader', 'Invoice Parser', 'Report Generator'], prompt: 'You are Ledger Reconciliation Agent for Beacon Health Partners. Extract invoice details, compare them against approved records, identify mismatches, and produce concise reconciliation findings.' },
+      { id: 'a3', name: 'Calendar Dispatch Agent', owner: 'UrbanBuild Contractors', status: 'Active', skills: ['Calendar Manager', 'Email Drafting', 'Web Browsing'], prompt: 'You are Calendar Dispatch Agent for UrbanBuild Contractors. Review scheduling requests, identify availability conflicts, and prepare calendar actions for human approval.' },
+      { id: 'a4', name: 'Insight Report Agent', owner: 'Meridian Legal Services', status: 'Inactive', skills: ['Report Generator', 'Document Reader', 'Risk Scanner'], prompt: 'You are Insight Report Agent for Meridian Legal Services. Review source documents, identify risks, and generate structured operational summaries with clear supporting notes.' },
+    ];
+
+    const skills = [
+      { id: 's1', name: 'Web Browsing', description: 'Allows an agent to retrieve and summarize public web information.', agentsEnabled: 2, associatedAgents: ['Atlas Support Agent', 'Calendar Dispatch Agent'], exampleUseCase: 'Research competitor pricing pages and summarize key findings for a sales team.' },
+      { id: 's2', name: 'Document Reader', description: 'Allows an agent to read uploaded documents and extract structured details.', agentsEnabled: 3, associatedAgents: ['Atlas Support Agent', 'Ledger Reconciliation Agent', 'Insight Report Agent'], exampleUseCase: 'Extract key clauses from uploaded lease agreements for legal review.' },
+      { id: 's3', name: 'Ticket Summarizer', description: 'Allows an agent to condense support tickets into actionable summaries.', agentsEnabled: 1, associatedAgents: ['Atlas Support Agent'], exampleUseCase: 'Summarize a long tenant maintenance thread into a one-paragraph escalation note.' },
+      { id: 's4', name: 'Invoice Parser', description: 'Allows an agent to extract totals, vendors, dates, and line items from invoices.', agentsEnabled: 1, associatedAgents: ['Ledger Reconciliation Agent'], exampleUseCase: 'Parse vendor invoices and flag totals that do not match purchase orders.' },
+      { id: 's5', name: 'Report Generator', description: 'Allows an agent to produce structured operational reports.', agentsEnabled: 2, associatedAgents: ['Ledger Reconciliation Agent', 'Insight Report Agent'], exampleUseCase: 'Generate a weekly reconciliation summary for finance stakeholders.' },
+      { id: 's6', name: 'Calendar Manager', description: 'Allows an agent to inspect schedules and prepare calendar actions.', agentsEnabled: 1, associatedAgents: ['Calendar Dispatch Agent'], exampleUseCase: 'Review crew availability and propose meeting slots for project kickoffs.' },
+      { id: 's7', name: 'Email Drafting', description: 'Allows an agent to prepare email responses or dispatch messages for review.', agentsEnabled: 1, associatedAgents: ['Calendar Dispatch Agent'], exampleUseCase: 'Draft scheduling confirmation emails for human approval before sending.' },
+      { id: 's8', name: 'Risk Scanner', description: 'Allows an agent to identify possible operational, legal, or compliance risks.', agentsEnabled: 1, associatedAgents: ['Insight Report Agent'], exampleUseCase: 'Scan contract documents and highlight clauses that may require legal review.' },
+    ];
+
+    const contracts = [
+      { id: 'c1', client: 'Northstar Property Group', agent: 'Atlas Support Agent', skills: ['Web Browsing', 'Document Reader', 'Ticket Summarizer'], startDate: '2026-06-01', endDate: '2026-06-30', status: 'Active', amountPaid: '$12,800', pricing: [{ skill: 'Web Browsing', price: '$4,200' }, { skill: 'Document Reader', price: '$5,100' }, { skill: 'Ticket Summarizer', price: '$3,500' }] },
+      { id: 'c2', client: 'Beacon Health Partners', agent: 'Ledger Reconciliation Agent', skills: ['Document Reader', 'Invoice Parser', 'Report Generator'], startDate: '2026-05-15', endDate: '2026-06-15', status: 'Renewal Due', amountPaid: '$18,400', pricing: [{ skill: 'Document Reader', price: '$5,400' }, { skill: 'Invoice Parser', price: '$6,200' }, { skill: 'Report Generator', price: '$6,800' }] },
+      { id: 'c3', client: 'UrbanBuild Contractors', agent: 'Calendar Dispatch Agent', skills: ['Calendar Manager', 'Email Drafting', 'Web Browsing'], startDate: '2026-06-10', endDate: '2026-07-10', status: 'Active', amountPaid: '$9,750', pricing: [{ skill: 'Calendar Manager', price: '$3,600' }, { skill: 'Email Drafting', price: '$2,650' }, { skill: 'Web Browsing', price: '$3,500' }] },
+      { id: 'c4', client: 'Meridian Legal Services', agent: 'Insight Report Agent', skills: ['Report Generator', 'Document Reader', 'Risk Scanner'], startDate: '2026-04-01', endDate: '2026-06-01', status: 'Expired', amountPaid: '$14,200', pricing: [{ skill: 'Report Generator', price: '$5,900' }, { skill: 'Document Reader', price: '$4,800' }, { skill: 'Risk Scanner', price: '$3,500' }] },
+    ];
+
+    const errors = [
+      { id: 'e1', timestamp: '2026-06-23 09:14', agent: 'Ledger Reconciliation Agent', errorType: 'Parsing', severity: 'High', description: 'Failed to extract invoice total from uploaded PDF.', trace: 'ExecutionTrace:\nagent_id: ledger-reconciliation-agent\nstep: invoice_parse\ntool: document_reader\nresult: failed\nmessage: Unable to identify invoice total with required confidence threshold.', resolved: false },
+      { id: 'e2', timestamp: '2026-06-23 10:02', agent: 'Atlas Support Agent', errorType: 'API Timeout', severity: 'Medium', description: 'Web lookup exceeded response threshold.', trace: 'ExecutionTrace:\nagent_id: atlas-support-agent\nstep: web_lookup\ntool: web_browsing\nresult: failed\nmessage: External request exceeded 30s response threshold.', resolved: false },
+      { id: 'e3', timestamp: '2026-06-23 10:47', agent: 'Calendar Dispatch Agent', errorType: 'Permission', severity: 'High', description: 'Calendar scope unavailable for requested action.', trace: 'ExecutionTrace:\nagent_id: calendar-dispatch-agent\nstep: calendar_read\ntool: calendar_manager\nresult: failed\nmessage: OAuth scope calendar.readonly not granted for target calendar.', resolved: false },
+      { id: 'e4', timestamp: '2026-06-23 11:18', agent: 'Ledger Reconciliation Agent', errorType: 'Validation', severity: 'High', description: 'Reconciliation output failed confidence rules.', trace: 'ExecutionTrace:\nagent_id: ledger-reconciliation-agent\nstep: reconcile_validate\ntool: report_generator\nresult: failed\nmessage: Confidence score 0.62 below required threshold of 0.85.', resolved: false },
+      { id: 'e5', timestamp: '2026-06-23 12:05', agent: 'Insight Report Agent', errorType: 'Tool Failure', severity: 'Medium', description: 'Report generator returned incomplete section data.', trace: 'ExecutionTrace:\nagent_id: insight-report-agent\nstep: report_generate\ntool: report_generator\nresult: failed\nmessage: Section "risk_summary" returned empty payload.', resolved: false },
+      { id: 'e6', timestamp: '2026-06-23 13:22', agent: 'Atlas Support Agent', errorType: 'Rate Limit', severity: 'Low', description: 'External search provider limit reached.', trace: 'ExecutionTrace:\nagent_id: atlas-support-agent\nstep: web_search\ntool: web_browsing\nresult: failed\nmessage: Provider rate limit of 100 requests/hour exceeded.', resolved: false },
+    ];
+
+    /* ── State ── */
+    let activeSection = 'dashboard';
+    let openDropdown = null;
+
+    /* ── Badge helpers ── */
+    const BADGE_CLASSES = {
+      Active: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
+      Trial: 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300',
+      'Past Due': 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+      Suspended: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300',
+      Failing: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300',
+      Inactive: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+      'Renewal Due': 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+      Expired: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+      Parsing: 'bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300',
+      'API Timeout': 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+      Permission: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300',
+      Validation: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300',
+      'Tool Failure': 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300',
+      'Rate Limit': 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300',
+      Resolved: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
+    };
+
+    function badge(label) {
+      const cls = BADGE_CLASSES[label] || 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+      return `<span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${cls}">${label}</span>`;
+    }
+
+    function dropdownMenu(entityType, entityId, entityLabel, actions) {
+      const items = actions.map(a =>
+        `<button type="button" class="dropdown-action block w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800" data-action="${a.action}" data-entity-type="${entityType}" data-entity-id="${entityId}">${a.label}</button>`
+      ).join('');
+      return `
+        <div class="relative">
+          <button type="button" class="dropdown-trigger rounded-lg px-2 py-1 text-lg leading-none text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-slate-400 dark:hover:bg-slate-800" aria-label="Open actions for ${entityLabel}" aria-haspopup="true" aria-expanded="false" data-entity-type="${entityType}" data-entity-id="${entityId}">&#8942;</button>
+          <div class="dropdown-menu absolute right-0 z-20 mt-1 hidden min-w-[10rem] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu">${items}</div>
+        </div>`;
+    }
+
+    function modalField(label, value) {
+      return `<div><span class="font-medium text-slate-900 dark:text-white">${label}:</span> ${value}</div>`;
+    }
+
+    /* ── Rendering ── */
+    function renderUsers() {
+      document.getElementById('users-table-body').innerHTML = users.map(u => `
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+          <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">${u.name}</td>
+          <td class="px-4 py-3 text-slate-600 dark:text-slate-300">${u.email}</td>
+          <td class="px-4 py-3">${u.plan}</td>
+          <td class="px-4 py-3">${badge(u.status)}</td>
+          <td class="px-4 py-3">${dropdownMenu('user', u.id, u.name, [{ action: 'view-detail', label: 'View detail' }, { action: 'delete', label: 'Delete' }])}</td>
+        </tr>`).join('');
+    }
+
+    function renderAgents() {
+      document.getElementById('agents-list').innerHTML = agents.map(a => `
+        <article class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900" data-agent-id="${a.id}">
+          <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="font-semibold text-slate-900 dark:text-white">${a.name}</h3>
+                ${badge(a.status)}
+              </div>
+              <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Owner: ${a.owner}</p>
+              <button type="button" class="skills-toggle mt-3 flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" aria-expanded="false" data-agent-id="${a.id}">
+                <span class="toggle-icon transition-transform duration-300">&#9654;</span>
+                <span>Show skills (${a.skills.length})</span>
+              </button>
+              <ul class="skills-panel mt-2 max-h-0 overflow-hidden transition-all duration-300 ease-in-out" data-agent-id="${a.id}">
+                ${a.skills.map(s => `<li class="py-0.5 text-sm text-slate-600 dark:text-slate-300">&#8226; ${s}</li>`).join('')}
+              </ul>
+            </div>
+            ${dropdownMenu('agent', a.id, a.name, [{ action: 'configure', label: 'Configure' }, { action: 'delete', label: 'Delete' }])}
+          </div>
+        </article>`).join('');
+    }
+
+    function renderSkills() {
+      document.getElementById('skills-list').innerHTML = skills.map(s => `
+        <article class="flex flex-col rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0 flex-1">
+              <h3 class="font-semibold text-slate-900 dark:text-white">${s.name}</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">${s.description}</p>
+              <p class="mt-3 text-xs font-medium text-slate-500 dark:text-slate-400">${s.agentsEnabled} agent${s.agentsEnabled !== 1 ? 's' : ''} enabled</p>
+            </div>
+            ${dropdownMenu('skill', s.id, s.name, [{ action: 'view-detail', label: 'View detail' }, { action: 'delete', label: 'Delete' }])}
+          </div>
+        </article>`).join('');
+    }
+
+    function renderContracts() {
+      document.getElementById('contracts-table-body').innerHTML = contracts.map(c => `
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+          <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">${c.client}</td>
+          <td class="px-4 py-3">${c.agent}</td>
+          <td class="px-4 py-3 text-slate-600 dark:text-slate-300">${c.skills.join(', ')}</td>
+          <td class="px-4 py-3">${c.startDate}</td>
+          <td class="px-4 py-3">${c.endDate}</td>
+          <td class="px-4 py-3">${badge(c.status)}</td>
+          <td class="px-4 py-3 font-medium">${c.amountPaid}</td>
+          <td class="px-4 py-3">${dropdownMenu('contract', c.id, c.client, [{ action: 'view-detail', label: 'View detail' }])}</td>
+        </tr>`).join('');
+    }
+
+    function renderErrors() {
+      document.getElementById('errors-table-body').innerHTML = errors.map(e => `
+        <tr class="error-row ${e.resolved ? 'opacity-50' : ''}" data-error-id="${e.id}">
+          <td class="px-4 py-3 whitespace-nowrap">${e.timestamp}</td>
+          <td class="px-4 py-3">${e.agent}</td>
+          <td class="px-4 py-3">${e.resolved ? badge('Resolved') : badge(e.errorType)}</td>
+          <td class="px-4 py-3 text-slate-600 dark:text-slate-300">${e.description}</td>
+          <td class="px-4 py-3">${dropdownMenu('error', e.id, e.agent, [{ action: 'view-detail', label: 'View detail' }, { action: 'resolve', label: 'Mark as resolved' }])}</td>
+        </tr>`).join('');
+    }
+
+    /* ── Navigation ── */
+    function navigateTo(section) {
+      activeSection = section;
+      document.querySelectorAll('.section-panel').forEach(el => {
+        el.classList.toggle('hidden', el.dataset.sectionPanel !== section);
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const isActive = btn.dataset.section === section;
+        btn.classList.toggle('bg-indigo-50', isActive);
+        btn.classList.toggle('text-indigo-700', isActive);
+        btn.classList.toggle('dark:bg-indigo-950/50', isActive);
+        btn.classList.toggle('dark:text-indigo-300', isActive);
+        btn.classList.toggle('text-slate-600', !isActive);
+        btn.classList.toggle('hover:bg-slate-100', !isActive);
+        btn.classList.toggle('dark:text-slate-400', !isActive);
+        btn.classList.toggle('dark:hover:bg-slate-800', !isActive);
+        btn.setAttribute('aria-current', isActive ? 'page' : 'false');
+      });
+      document.getElementById('page-title').textContent = SECTION_TITLES[section];
+      closeAllDropdowns();
+    }
+
+    /* ── Theme ── */
+    function applyTheme(isDark) {
+      document.documentElement.classList.toggle('dark', isDark);
+      document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('theme-label').textContent = isDark ? 'Light mode' : 'Dark mode';
+    }
+
+    function toggleTheme() {
+      const isDark = !document.documentElement.classList.contains('dark');
+      applyTheme(isDark);
+    }
+
+    /* ── Dropdowns ── */
+    function closeAllDropdowns() {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.add('hidden'));
+      document.querySelectorAll('.dropdown-trigger').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+      openDropdown = null;
+    }
+
+    function toggleDropdown(trigger) {
+      const menu = trigger.nextElementSibling;
+      const wasOpen = openDropdown === trigger;
+      closeAllDropdowns();
+      if (!wasOpen) {
+        menu.classList.remove('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+        openDropdown = trigger;
+      }
+    }
+
+    /* ── Modal ── */
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+
+    function openModal(title, bodyHtml) {
+      modalTitle.textContent = title;
+      modalBody.innerHTML = bodyHtml;
+      modalOverlay.classList.remove('hidden');
+      modalOverlay.classList.add('flex');
+      document.getElementById('modal-close').focus();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.add('hidden');
+      modalOverlay.classList.remove('flex');
+      modalBody.innerHTML = '';
+    }
+
+    function showUserModal(id) {
+      const u = users.find(x => x.id === id);
+      if (!u) return;
+      openModal('User Detail', `
+        ${modalField('Name', u.name)}
+        ${modalField('Email', u.email)}
+        ${modalField('Plan', u.plan)}
+        ${modalField('Status', badge(u.status))}
+        ${modalField('Company', u.company)}
+        ${modalField('Joined', u.joined)}
+        ${modalField('Last login', u.lastLogin)}`);
+    }
+
+    function showAgentModal(id) {
+      const a = agents.find(x => x.id === id);
+      if (!a) return;
+      openModal('Configure Agent', `
+        ${modalField('Agent', a.name)}
+        ${modalField('Owner', a.owner)}
+        ${modalField('Status', badge(a.status))}
+        ${modalField('Skills', a.skills.join(', '))}
+        <div class="pt-2">
+          <label for="agent-prompt" class="mb-1 block font-medium text-slate-900 dark:text-white">System prompt</label>
+          <textarea id="agent-prompt" rows="5" class="w-full rounded-lg border border-slate-300 bg-white p-3 text-sm text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200">${a.prompt}</textarea>
+        </div>`);
+    }
+
+    function showSkillModal(id) {
+      const s = skills.find(x => x.id === id);
+      if (!s) return;
+      openModal('Skill Detail', `
+        ${modalField('Skill', s.name)}
+        ${modalField('Description', s.description)}
+        ${modalField('Agents enabled', s.agentsEnabled)}
+        ${modalField('Associated agents', s.associatedAgents.join(', '))}
+        ${modalField('Example use case', s.exampleUseCase)}`);
+    }
+
+    function showContractModal(id) {
+      const c = contracts.find(x => x.id === id);
+      if (!c) return;
+      const pricingHtml = c.pricing.map(p => `<li class="flex justify-between py-1"><span>${p.skill}</span><span class="font-medium">${p.price}</span></li>`).join('');
+      openModal('Contract Detail', `
+        ${modalField('Client', c.client)}
+        ${modalField('Agent', c.agent)}
+        ${modalField('Start date', c.startDate)}
+        ${modalField('End date', c.endDate)}
+        ${modalField('Status', badge(c.status))}
+        ${modalField('Amount paid', c.amountPaid)}
+        <div class="pt-2">
+          <p class="mb-2 font-medium text-slate-900 dark:text-white">Itemized skill pricing</p>
+          <ul class="divide-y divide-slate-200 rounded-lg border border-slate-200 p-3 dark:divide-slate-700 dark:border-slate-700">${pricingHtml}</ul>
+        </div>`);
+    }
+
+    function showErrorModal(id) {
+      const e = errors.find(x => x.id === id);
+      if (!e) return;
+      openModal('Error Detail', `
+        ${modalField('Timestamp', e.timestamp)}
+        ${modalField('Agent', e.agent)}
+        ${modalField('Error type', badge(e.errorType))}
+        ${modalField('Severity', e.severity)}
+        ${modalField('Description', e.description)}
+        <div class="pt-2">
+          <p class="mb-1 font-medium text-slate-900 dark:text-white">Full trace</p>
+          <pre class="overflow-x-auto rounded-lg bg-slate-100 p-3 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300">${e.trace}</pre>
+        </div>`);
+    }
+
+    /* ── Toast ── */
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
+
+    /* ── Collapsibles ── */
+    function toggleSkills(btn) {
+      const panel = btn.parentElement.querySelector('.skills-panel');
+      const icon = btn.querySelector('.toggle-icon');
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if (expanded) {
+        panel.classList.remove('max-h-40');
+        panel.classList.add('max-h-0');
+        icon.classList.remove('rotate-90');
+        btn.querySelector('span:last-child').textContent = `Show skills (${panel.querySelectorAll('li').length})`;
+      } else {
+        panel.classList.remove('max-h-0');
+        panel.classList.add('max-h-40');
+        icon.classList.add('rotate-90');
+        btn.querySelector('span:last-child').textContent = 'Hide skills';
+      }
+    }
+
+    /* ── Actions ── */
+    function handleAction(entityType, entityId, action) {
+      closeAllDropdowns();
+      if (action === 'view-detail') {
+        if (entityType === 'user') showUserModal(entityId);
+        else if (entityType === 'skill') showSkillModal(entityId);
+        else if (entityType === 'contract') showContractModal(entityId);
+        else if (entityType === 'error') showErrorModal(entityId);
+      } else if (action === 'configure') {
+        showAgentModal(entityId);
+      } else if (action === 'delete') {
+        const labels = { user: 'User', agent: 'Agent', skill: 'Skill' };
+        showToast(`${labels[entityType] || 'Item'} delete is a prototype action only.`);
+      } else if (action === 'resolve') {
+        const err = errors.find(e => e.id === entityId);
+        if (err && !err.resolved) {
+          err.resolved = true;
+          renderErrors();
+          showToast('Error marked as resolved.');
+        }
+      }
+    }
+
+    /* ── Event listeners ── */
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => navigateTo(btn.dataset.section));
+    });
+
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.dropdown-trigger');
+      if (trigger) {
+        e.stopPropagation();
+        toggleDropdown(trigger);
+        return;
+      }
+      const actionBtn = e.target.closest('.dropdown-action');
+      if (actionBtn) {
+        handleAction(actionBtn.dataset.entityType, actionBtn.dataset.entityId, actionBtn.dataset.action);
+        return;
+      }
+      const skillsBtn = e.target.closest('.skills-toggle');
+      if (skillsBtn) {
+        toggleSkills(skillsBtn);
+        return;
+      }
+      if (e.target === modalOverlay) closeModal();
+      if (!e.target.closest('.dropdown-menu')) closeAllDropdowns();
+    });
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeAllDropdowns();
+      }
+    });
+
+    /* ── Init ── */
+    renderUsers();
+    renderAgents();
+    renderSkills();
+    renderContracts();
+    renderErrors();
+    navigateTo('dashboard');
+  </script>
+</body>
+</html>
