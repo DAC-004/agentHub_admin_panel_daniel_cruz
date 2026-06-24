@@ -1,0 +1,86 @@
+### 10. Action Column Visibility
+
+Improve the visual prominence of every `⋮` action trigger across all sections.
+
+The `⋮` trigger must:
+- Be clearly visible at rest.
+- Use a defined button treatment, not plain floating text.
+- Work visually in dark and light mode.
+- Remain consistent across User Management, Agent Management, Skills, Agent Contracts, and Error Log.
+- Preserve all existing dropdown logic.
+
+Absolute Constraints
+Do not violate any of the following:
+Do not change application logic.
+Do not change hardcoded data values.
+Do not rename required sections.
+Do not remove sections.
+Do not remove dropdowns.
+Do not remove modals.
+Do not remove collapsible skill-list behavior.
+Do not remove dark/light mode behavior.
+Do not add backend behavior.
+Do not add API calls.
+Do not add persistence.
+Do not add a charting library.
+Do not add a build step.
+Do not add React, Vue, Angular, Svelte, jQuery, Bootstrap, or any framework.
+Do not add external CSS files.
+Do not add custom CSS files.
+Do not add inline style attributes.
+Do not use CSS inside a <style> tag.
+Do not change the project away from Tailwind CSS via CDN.
+Do not split the project into multiple files unless it is already split and required.
+
+Allowed work is limited to the visual prominence of every `⋮` action trigger across all sections
+
+Required Quality Checks
+Before finishing, manually verify:
+
+All six sections still exist.
+Sidebar navigation still works.
+Active sidebar state still updates.
+Top bar title still updates.
+Dark/light mode still switches the full interface.
+Theme state still remains while navigating.
+Dashboard still has four required metric cards.
+Dashboard still has the weekly activity placeholder.
+User Management still has at least five rows.
+Agent Management still has at least four agents.
+Agent skill lists are still collapsed by default.
+Agent skill lists still expand/collapse on click.
+Skills still displays the required explanation.
+Skills still displays at least four skills.
+Agent Contracts still has at least four rows.
+Error Log still has at least six entries.
+Every required ⋮ dropdown still opens.
+Dropdowns still close on outside click.
+Dropdowns still close after selecting an action.
+Modals still open from required actions.
+Modals still close by close button.
+Modals still close by backdrop click.
+Configure modal still contains an editable <textarea>.
+Mark as resolved still provides a visible prototype response.
+No hardcoded data was changed.
+No inline style attributes were added.
+No <style> block was added.
+No external CSS file was added.
+No framework/library was added.
+Tailwind is still loaded via CDN.
+Vanilla JavaScript remains the only script approach.
+The page still opens directly in a browser without installing dependencies.
+Desktop viewport is usable.
+Tablet viewport is usable.
+The final visual design feels like an enterprise SaaS AI operations console.
+Final Response Required From Agent
+After completing the refactor, provide a concise report with:
+
+Files changed.
+Confirmation that only visual Tailwind/markup refinements were made.
+Confirmation that no application logic was changed.
+Confirmation that no hardcoded data was changed.
+Confirmation that no frameworks, external CSS, inline styles, or build tools were added.
+Confirmation that Tailwind CDN remains in use.
+Confirmation that dropdowns, modals, collapsibles, navigation, and theme toggle were manually checked.
+Any known visual limitations.
+Do not include unnecessary commentary. :::
